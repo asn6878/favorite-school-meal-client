@@ -108,8 +108,8 @@ const MapInfo= ({id, pageType}) => {
         category : "기본 식당 카테고리", 
         thumbnail_url : "기본 식당이미지", 
         businessHours : "기본 식당 운영시간",
-        
-    })
+        menuImage_url : null
+    });
 
     useEffect(() => {
         axios.get('/restaurants/' + id).then((res) => {
@@ -121,11 +121,31 @@ const MapInfo= ({id, pageType}) => {
                     category : restaurant.category,
                     thumbnail_url : restaurant.thumbnail_url,
                     businessHours : restaurant.businessHours,
+                    menuImage_url : restaurant.menuImage_url,    
             };
             console.log(formattedData);
             setData(formattedData);
         })
     },[id]);
+
+    const downloadImage = () => {
+        // 이미지가 있는 URL 확인
+        if (data.menuImage_url) {
+          // 이미지를 다운로드하기 위해 <a> 엘리먼트 생성
+          const link = document.createElement('a');
+          link.href = data.menuImage_url;
+          link.download = 'downloaded-image'; // 이미지 다운로드될 때의 파일명
+    
+          // DOM에 엘리먼트 추가하고 클릭하여 다운로드 진행
+          document.body.appendChild(link);
+          link.click();
+    
+          // 다운로드가 완료되었으므로 추가한 엘리먼트 제거
+          document.body.removeChild(link);
+        } else {
+          console.error('이미지 URL이 없습니다.');
+        }
+    };
 
 
     
@@ -155,7 +175,7 @@ const MapInfo= ({id, pageType}) => {
                         : (data.isOnCampus
                             ? <S.Button style={{width: "109px"}}>
                                 <Link to={`/MapPage/${id}`} style={{ textDecoration: "none"}}>
-                                    <S.DetailButtonText>메뉴 정보 조회하기</S.DetailButtonText>
+                                    <S.DetailButtonText onClick={downloadImage}>메뉴 정보 조회하기</S.DetailButtonText>
                                 </Link>
                             </S.Button>
                             : null

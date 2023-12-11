@@ -51,13 +51,14 @@ const RestrauntInfoPage = () => {
         axios.get('/restaurants/' + routerParams.RestaurantId + '/posts').then((res) => {
             const formattedData = (res.data.data.content).map(post => ({
                 PostId: post.postId,
-                WriterId: post.writerId,
+                WriterId: post.memberId,
                 Title : post.title,
                 Content : post.content,
                 MatchingState : post.matching.matchingStatus,
                 CreatedTime : post.createdAt,
                 CommentCount : post.commentCount
             }));
+            console.log(res.data.data.content);
             console.log(formattedData);
             setData(formattedData);
         }).catch((err) => {
