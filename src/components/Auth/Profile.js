@@ -178,12 +178,8 @@ const Profile = () => {
         {userData &&
             <>
                 <div style={{ height: "50px" }}></div>
-                <ProfilePicture imageUrl={userData?.profileImage}>
-                    {userData?.profileImage ? (
-                        <img className="profile     -image" src={userData.profileImage} alt="프로필 사진" />
-                    ) : (
-                        <FaUserCircle className="profile-icon" />
-                    )}
+                <ProfilePicture>
+                    {userData && <img className="profile-image" src={`https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`} alt="프로필 사진" />}
                 </ProfilePicture>
                 <ProfileDetails>
                     <S.InfoWrapper>
