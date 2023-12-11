@@ -47,7 +47,7 @@ const LoginPage = () => {
                 </SignInBox>
                 
                 <SocialLoginContainer>
-                    <KakaoLoginForm/> 
+                    {/* <KakaoLoginForm/>  */}
                     <NaverLoginForm/>
 
                 <FindPage>
